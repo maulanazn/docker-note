@@ -1,12 +1,21 @@
 FROM golang:latest
 
 ENV HOST_PORT=3000
+ARG APP_DIR=/app
+ARG APP_DATA=/logs
 
-RUN mkdir testhello
+WORKDIR ${APP_DIR}/${APP_DATA}
 
-COPY server.go testhello
+RUN addgroup ww-dev
+RUN adduser -S -D -h ${APP_DIR}/${APP_DATA} ww-1 ww-dev
+RUN chown -R ww-1:ww-dev /app/logs
+USER ww-1
+
+COPY server.go ${APP_DIR}
+COPY go.mod ${APP_DIR}
 
 EXPOSE ${HOST_PORT}
+VOLUME ${APP_DATA}
 
-CMD cd testhello && go run server.go
+CMD cd ${APP_DIR} && go run server.go
 
