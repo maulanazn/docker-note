@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  hello-compose:
+    restart: on-failure
+    container_name: hello-compose
+    build:
+      dockerfile: Dockerfile
+    image: "hello-compose:1.0"
+    environment:
+      - "HOST_PORT=3000"
+      - MODE=dev
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/hitme"]
+      interval: 10s
+      timeout: 10s
+      retries: 7
+      start_period: 10s
