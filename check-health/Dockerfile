@@ -1,6 +1,5 @@
-FROM golang:1.20-alpine3.17
+FROM golang:1.20-alpine3.17 as builder
 
-ENV HOST_PORT=3000
 ARG APP_DIR=/app
 
 RUN apk --no-cache add curl
@@ -12,11 +11,15 @@ RUN chown -R ww1:wwdev ${APP_DIR}
 USER ww1
 
 COPY server.go ${APP_DIR}
-COPY go.mod ${APP_DIR}
-
-EXPOSE ${HOST_PORT}
 
 HEALTHCHECK --interval=5s --start-period=5s CMD curl -f http://localhost:3000/trigger
 
-CMD cd ${APP_DIR} && go run server.go
+RUN go build -o ${APP_DIR}/main server.go
 
+FROM alpine:latest
+
+WORKDIR /app/
+
+COPY --from=builder /app/main ./
+
+CMD /app/main
