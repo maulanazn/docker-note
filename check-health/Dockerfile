@@ -3,6 +3,7 @@ FROM golang:1.20-alpine3.17
 ENV HOST_PORT=3000
 ARG APP_DIR=/app
 
+RUN apk --no-cache add curl
 WORKDIR ${APP_DIR}
 
 RUN addgroup -S wwdev
@@ -14,6 +15,8 @@ COPY server.go ${APP_DIR}
 COPY go.mod ${APP_DIR}
 
 EXPOSE ${HOST_PORT}
+
+HEALTHCHECK --interval=5s --start-period=5s CMD curl -f http://localhost:3000/trigger
 
 CMD cd ${APP_DIR} && go run server.go
 
