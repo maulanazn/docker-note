@@ -1,1 +1,1 @@
-podman images
+docker images
