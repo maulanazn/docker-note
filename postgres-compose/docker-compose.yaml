@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  postgres-server:
+    deploy:
+      resources:
+        reservations:
+          memory: 750m
+          cpus: "1.5"
+    container_name: postgres-server
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    networks:
+      - maulanazn-server
+    volumes:
+      - postgres-maulanazn-volume:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: maulanazn
+      POSTGRES_PASSWORD: maulanazn123
+      POSTGRES_DB: maulanazn
+
+networks:
+  maulanazn-server:
+    driver: bridge
+    name: maulanazn-server
+
+volumes:
+  postgres-maulanazn-volume:
+    name: postgres-maulanazn-volume
