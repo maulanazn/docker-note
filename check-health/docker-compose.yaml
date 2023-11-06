@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  check-health:
+    build:
+      dockerfile: Dockerfile
+    image: test-checkhealth
+    container_name: tes-checkhealth
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000

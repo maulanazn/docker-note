@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 )
 
 var counter int
@@ -23,7 +24,8 @@ func Counter(writer http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	port := os.Getenv("PORT")
 	http.HandleFunc("/", HelloServer)
 	http.HandleFunc("/trigger", Counter)
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":"+port, nil)
 }

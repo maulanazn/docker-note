@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  elasticsearch-server:
+    deploy:
+      resources:
+        reservations:
+          cpus: "2.2"
+          memory: "500m"
+    container_name: elasticsearch-server
+    image: elasticsearch:8.10.4
+    ports:
+      - 9200:9200
+
+networks:
+  elasticsearch-maulanazn-network:
+    driver: bridge
+    name: elasticsearch-maulanazn.network
