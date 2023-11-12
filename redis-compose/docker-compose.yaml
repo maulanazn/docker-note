@@ -1,22 +1,28 @@
 version: "3.9"
 
 services:
-  redis-server:
+  maulana-redis-server:
     deploy:
       resources:
         reservations:
           cpus: "1.5"
-          memory: "250m"
-    container_name: redis-server
-    image: redis:7.2.3-alpine
-    command: redis-server /usr/local/etc/redis/redis.conf
+          memory: "300m"
+    container_name: maulana-redis-server
+    image: redis:latest
     ports:
-      - "6379:6379"
+      - 6379:6379
     networks:
       - maulanazn-redis-network
     volumes:
-      - ./config/redis.conf:/usr/local/etc/redis
+      - maulanazn-redis-volume:/var/lib/redis
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+
 networks:
   maulanazn-redis-network:
     driver: bridge
     name: maulanazn-redis-network
+
+volumes:
+  maulanazn-redis-volume:
+    name: maulanazn-redis-volume
