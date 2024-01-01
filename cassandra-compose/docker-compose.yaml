@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  cassandra-server:
+    container_name: cassandra-server
+    image: cassandra:latest
+
+networks:
+  

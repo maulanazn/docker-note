@@ -1,30 +1,30 @@
 version: '3.9'
 
 services:
-  mongo-server:
+  taylorstore-server:
     deploy:
       resources:
         reservations:
           memory: "150m"
           cpus: "1.2"
-    container_name: mongo-server
+    container_name: taylorstore-server
     image: mongo:latest
     ports:
-      - 27017:27017
+      - 27020:27017
     networks:
-      - mongo-maulanazn-network
+      - mongo-taylorstore-network
     volumes:
-      - mongo-maulanazn-volume:/data/db
+      - mongo-taylorstore-volume:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: maulanazn
       MONGO_INITDB_ROOT_PASSWORD: maulanazn123
       MONGO_INITDB_DATABASE: maulanazn
 
 networks:
-  mongo-maulanazn-network:
+  mongo-taylorstore-network:
     driver: bridge
-    name: mongo-maulanazn-network
+    name: mongo-taylorstore-network
 
 volumes:
-  mongo-maulanazn-volume:
-    name: mongo-maulanazn-volume
+  mongo-taylorstore-volume:
+    name: mongo-taylorstore-volume

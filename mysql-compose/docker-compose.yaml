@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  mysql-local-server:
+    container_name: mysql-local-server
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-volume-maulanazn:/var/lib/mysql
+    networks:
+      - mysql-server-maulanazn
+    environment:
+      MYSQL_USER: maulanazn
+      MYSQL_PASSWORD: maulanazn123
+      MYSQL_DATABASE: weareuser
+      MYSQL_ROOT_PASSWORD: rootpassword123
+
+networks:
+  mysql-server-maulanazn:
+    driver: bridge
+    name: mysql-server-maulanazn
+
+volumes:
+  mysql-volume-maulanazn:
+    name: mysql-volume-maulanazn
