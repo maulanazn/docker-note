@@ -20,6 +20,17 @@ services:
       POSTGRES_PASSWORD: maulanazn123
       POSTGRES_DB: maulanazn
 
+  pgadmin-client:
+    container_name: pgadmin-client
+    image: dpage/pgadmin4
+    ports:
+      - 7080:80
+    networks:
+      - postgres-maulanazn-server
+    environment:
+      PGADMIN_DEFAULT_EMAIL: maulinuxzn@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: maulinuxpgadmin4
+
 networks:
   postgres-maulanazn-server:
     driver: bridge
