@@ -15,7 +15,19 @@ services:
       MYSQL_PASSWORD: maulanazn123
       MYSQL_DATABASE: weareuser
       MYSQL_ROOT_PASSWORD: rootpassword123
-
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - mysql-server-maulanazn
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql-local-server
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpassword123
 networks:
   mysql-server-maulanazn:
     driver: bridge
